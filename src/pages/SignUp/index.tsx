@@ -4,14 +4,17 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../assets/logo.svg';
 import { Background, Container, Content } from './styles';
+import { Form } from '@unform/web';
 
 const SignUp: React.FC = () => {
+  function handleSubmit(data: object) {}
+
   return (
     <Container>
       <Background />
       <Content>
         <img src={Logo} alt="GoBarber" />
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
           <Input name="name" icon={FiUser} placeholder="Nome" />
 
@@ -25,7 +28,7 @@ const SignUp: React.FC = () => {
           />
 
           <Button type="submit">Cadastrar</Button>
-        </form>
+        </Form>
         <a href="">
           <FiArrowLeft />
           Voltar para logon
