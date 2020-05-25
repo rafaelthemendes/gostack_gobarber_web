@@ -9,6 +9,7 @@ import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { Background, Container, Content } from './styles';
+import { useToast } from '../../hooks/toast';
 
 interface SignInFormData {
   email: string;
@@ -19,6 +20,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -40,7 +42,13 @@ const SignIn: React.FC = () => {
           const validationErrors = getValidationErrors(error);
           formRef.current?.setErrors(validationErrors);
         }
-        console.log(error);
+
+        addToast({
+          type: 'success',
+          title: 'Erro na autenticação',
+          description:
+            'Ocorreu um erro ao fazer login. Verifique seu email e senha, e tente novamente.',
+        });
       }
     },
     [signIn]

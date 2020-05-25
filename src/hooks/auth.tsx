@@ -31,17 +31,13 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async (credentials: SignInCredentials) => {
-    try {
-      const {
-        data: { token, user },
-      } = await api.post<AuthState>('sessions', credentials);
+    const {
+      data: { token, user },
+    } = await api.post<AuthState>('sessions', credentials);
 
-      localStorage.setItem('@GoBarberWeb:token', token);
-      localStorage.setItem('@GoBarberWeb:user', JSON.stringify(user));
-      setData({ token, user });
-    } catch (error) {
-      console.log(error);
-    }
+    localStorage.setItem('@GoBarberWeb:token', token);
+    localStorage.setItem('@GoBarberWeb:user', JSON.stringify(user));
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {
