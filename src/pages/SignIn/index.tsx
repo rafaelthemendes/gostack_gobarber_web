@@ -10,6 +10,7 @@ import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { Background, Container, Content } from './styles';
 import { useToast } from '../../hooks/toast';
+import { Link } from 'react-router-dom';
 
 interface SignInFormData {
   email: string;
@@ -40,7 +41,7 @@ const SignIn: React.FC = () => {
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const validationErrors = getValidationErrors(error);
-          formRef.current?.setErrors(validationErrors);
+          return formRef.current?.setErrors(validationErrors);
         }
 
         addToast({
@@ -51,7 +52,7 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [signIn]
+    [signIn, addToast]
   );
 
   return (
@@ -74,10 +75,10 @@ const SignIn: React.FC = () => {
 
           <a href="">Esqueci minha senha</a>
         </Form>
-        <a href="">
+        <Link to="signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>
